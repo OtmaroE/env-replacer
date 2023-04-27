@@ -1,5 +1,6 @@
 console.log('test');
 const fs = require('fs');
+const rl = require('readline');
 
 const values = {
   value1: process.env.value1,
@@ -15,8 +16,8 @@ if (fs.existsSync('./.env')) {
 
 function createFileFromTemplateWithLocalVars() {
   let envVariables;
-  envVariables = require('readline').createInterface({
-    input: require('fs').createReadStream('./.env')
+  envVariables = rl.createInterface({
+    input: fs.createReadStream('./.env')
   });
   envVariables.on('line', (line) => {
     switch (true) {
@@ -34,8 +35,8 @@ function createFileFromTemplateWithLocalVars() {
 }
 
 function createFileFromTemplate() {
-  const file = require('readline').createInterface({
-    input: require('fs').createReadStream('./config.js')
+  const file = rl.createInterface({
+    input: fs.createReadStream('./config.js')
   });
   let nFile = '';
   file.on('line', (line) => {
